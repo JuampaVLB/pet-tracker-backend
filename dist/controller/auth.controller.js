@@ -34,11 +34,12 @@ const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signin = signin;
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, role } = req.body;
         const newUser = yield auth_model_1.default.create({
             username,
             email,
-            password
+            password,
+            role
         });
         newUser.password = yield newUser.encryptPassword(newUser.password);
         const savedUser = yield newUser.save();

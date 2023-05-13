@@ -5,12 +5,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerSchema = exports.loginSchema = void 0;
 const zod_1 = __importDefault(require("zod"));
+const VALUES = ["user", "business", "institution"];
 exports.loginSchema = zod_1.default.object({
-    username: zod_1.default.string().nonempty('Username is required').min(6),
-    password: zod_1.default.string().nonempty('Password is required').min(6)
+    body: zod_1.default.object({
+        username: zod_1.default.string()
+            .nonempty('El nombre de usuario es requerido.')
+            .min(6, "Se necesita un minimo de 6 caracteres para el nombre de usuario."),
+        password: zod_1.default.string()
+            .nonempty('La contraseña es requerida.')
+            .min(6, "Se necesita un minimo de 6 caracteres para su contraseña.")
+    }),
 });
 exports.registerSchema = zod_1.default.object({
-    username: zod_1.default.string().nonempty('Username is required').min(6),
-    password: zod_1.default.string().nonempty('Password is required').min(6),
-    email: zod_1.default.string().nonempty('Email is required').email()
+    body: zod_1.default.object({
+        username: zod_1.default.string().nonempty('El nombre de usuario es requerido.').min(6, "Se necesita un minimo de 6 caracteres para el nombre de usuario."),
+        password: zod_1.default.string().nonempty('La contraseña es requerida.').min(6, "Se necesita un minimo de 6 caracteres para su contraseña."),
+        email: zod_1.default.string().nonempty('El email es requerido.').email(),
+        role: zod_1.default.enum(VALUES)
+    }),
 });

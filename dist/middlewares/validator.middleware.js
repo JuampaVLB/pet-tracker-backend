@@ -12,14 +12,10 @@ const schemaValidation = (schema) => (req, res, next) => {
         return next();
     }
     catch (error) {
-        console.log(error);
         if (error instanceof zod_1.ZodError) {
-            return res.status(400).json(error.issues.map((issue) => ({
-                path: issue.path,
-                message: issue.message,
-            })));
+            return res.status(400).json(error.issues.map((issue) => ({ message: issue.message })));
         }
-        return res.status(400).json({ message: "internal server error" });
+        return res.status(400).json({ message: 'internal server error' });
     }
 };
 exports.schemaValidation = schemaValidation;

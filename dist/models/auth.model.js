@@ -31,7 +31,14 @@ const userSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        required: true
     }
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 userSchema.methods.encryptPassword = (password) => {
     const salt = bcryptjs_1.default.genSaltSync(10);
