@@ -1,6 +1,6 @@
 import z from "zod";
 
-const VALUES = ["user", "business", "institution"] as const;
+const VALUES = ["user", "business", "institution", "admin"] as const;
 
 export const loginSchema = z.object({
     body: z.object({

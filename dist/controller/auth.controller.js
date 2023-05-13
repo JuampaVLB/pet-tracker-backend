@@ -43,7 +43,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         newUser.password = yield newUser.encryptPassword(newUser.password);
         const savedUser = yield newUser.save();
-        const token = jsonwebtoken_1.default.sign({ _id: savedUser._id }, process.env.TOKEN_SECRET || 'tokentest');
+        const token = jsonwebtoken_1.default.sign({ _id: savedUser._id, role }, process.env.TOKEN_SECRET || 'tokentest');
         return res.header('auth-token', token).status(200).json({ status: 200, user: savedUser });
     }
     catch (error) {

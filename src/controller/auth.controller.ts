@@ -37,7 +37,7 @@ export const signup = async (req: Request, res: Response) => {
 
         const savedUser = await newUser.save();
 
-        const token: string = jwt.sign({ _id: savedUser._id }, process.env.TOKEN_SECRET || 'tokentest')
+        const token: string = jwt.sign({ _id: savedUser._id, role }, process.env.TOKEN_SECRET || 'tokentest')
 
         return res.header('auth-token', token).status(200).json({ status: 200, user: savedUser });
     } catch (error) {

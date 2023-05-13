@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerSchema = exports.loginSchema = void 0;
 const zod_1 = __importDefault(require("zod"));
-const VALUES = ["user", "business", "institution"];
+const VALUES = ["user", "business", "institution", "admin"];
 exports.loginSchema = zod_1.default.object({
     body: zod_1.default.object({
         username: zod_1.default.string()
