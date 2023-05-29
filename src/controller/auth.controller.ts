@@ -16,7 +16,7 @@ export const signin = async (req: Request, res: Response) => {
 
         const token: string = jwt.sign({ _id: userFind._id }, process.env.TOKEN_SECRET || 'tokentest');
 
-        return res.header('auth-token', token).status(200).json({ status: 200, user: userFind });
+        return res.header('auth-token', token).status(200).json({ status: 200, user: userFind, token });
     } catch (error) {
         return res.status(500).json({ message: 'internal server error' });
     }

@@ -1,7 +1,6 @@
 // Modules
 
 import express, { Application } from 'express';
-import cors from 'cors';
 
 const app: Application = express();
 
@@ -14,7 +13,6 @@ import postRoutes from './routes/post.routes';
 
 app.set('PORT', process.env.PORT || 4000);
 
-app.use(cors());
 
 app.use(express.json());
 
