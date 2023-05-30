@@ -18,7 +18,7 @@ export const signin = async (req: Request, res: Response) => {
 
         return res.header('auth-token', token).status(200).json({ status: 200, user: userFind, token });
     } catch (error) {
-        return res.status(500).json({ message: 'internal server error' });
+        return res.status(500).json({ message: 'internal server error (!)' });
     }
 }
 
