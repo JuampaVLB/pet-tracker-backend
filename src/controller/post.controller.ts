@@ -3,7 +3,7 @@ import Post, { IPost } from '../models/post.model';
 
 export const sendPost = async (req: Request, res: Response) => {
     try {
-        
+
         const { username, title, desc } = req.body;
 
         const newPost: IPost = await Post.create({
@@ -12,24 +12,27 @@ export const sendPost = async (req: Request, res: Response) => {
             desc,
         })
 
-        return res.status(400).json({message: "Post Created Succesfully", newPost});
+        return res.status(400).json({ message: "Post Created Succesfully", newPost });
 
     } catch (error) {
-        return res.status(404).json({error});
+        return res.status(404).json({ error });
     }
 }
 
 export const test = async (req: Request, res: Response) => {
-    
-    const { username, title, desc } = req.body;
-    
-    const newPost: IPost = await Post.create({
-        username: username,
-        title: title,
-        desc: desc,
-    })
+    try {
+        const { username, title, desc } = req.body;
 
-    return res.json({newPost});
+        const newPost: IPost = await Post.create({
+            username: username,
+            title: title,
+            desc: desc,
+        })
+
+        return res.status(200).json({ message: "Post Created Succesfully", newPost });
+    } catch (error) {
+        return res.status(500).json({ message: 'internal server error (!)' });
+    }
 }
 
 export const getPosts = async (_req: Request, res: Response) => {

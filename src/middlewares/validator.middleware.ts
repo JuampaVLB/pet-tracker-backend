@@ -12,11 +12,10 @@ export const schemaValidation =
         });
         return next();
       } catch (error) {
-
         if (error instanceof ZodError) {
           return res.status(400).json(error.issues.map((issue) => ({ message: issue.message })));
         }
-        return res.status(400).json({ message: 'internal server error' });
+        return res.status(401).json({ message: 'internal server error' });
 
       }
     };
