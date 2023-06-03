@@ -10,6 +10,6 @@ export const postSchema = z.object({
             .min(4, "Se necesita un minimo de 4 caracteres para el Titulo."),
         desc: z.string()
             .nonempty('La Descripcion es requerida.')
-    }),
+        }),
 });
 

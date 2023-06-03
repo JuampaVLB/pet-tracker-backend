@@ -4,6 +4,8 @@ export interface IPost extends Document {
     username: string,
     title: string,
     desc: string,
+    room: string,
+    comments: string,
 }
 
 const postSchema = new Schema({
@@ -19,6 +21,14 @@ const postSchema = new Schema({
     desc: {
         type: String,
         required: true,
+    },
+    room: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    comments: {
+        type: String,
     }
 },
 {
