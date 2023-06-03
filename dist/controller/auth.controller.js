@@ -25,10 +25,10 @@ const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!authPassword)
             return res.status(400).json({ status: 400, message: 'Error Password Incorrect' });
         const token = jsonwebtoken_1.default.sign({ _id: userFind._id }, process.env.TOKEN_SECRET || 'tokentest');
-        return res.header('auth-token', token).status(200).json({ status: 200, user: userFind });
+        return res.header('auth-token', token).status(200).json({ status: 200, user: userFind, token });
     }
     catch (error) {
-        return res.status(500).json({ message: 'internal server error' });
+        return res.status(500).json({ message: 'internal server error (!)' });
     }
 });
 exports.signin = signin;

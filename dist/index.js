@@ -3,14 +3,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
+const express_1 = __importDefault(require("express"));
 require("./database");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+const socket_io_1 = require("socket.io");
+const sockets_1 = __importDefault(require("./sockets"));
+const http_1 = __importDefault(require("http"));
+const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
+const post_routes_1 = __importDefault(require("./routes/post.routes"));
+const app = (0, express_1.default)();
 // Settings
-function main() {
-    app_1.default.listen(app_1.default.get('PORT'), () => {
-        console.log("Server on PORT: " + app_1.default.get('PORT'));
-    });
-}
-main();
+app.use(express_1.default.json());
+// Routes
+app.use('/api/v1/auth', auth_routes_1.default);
+app.use('/api/v1/post', post_routes_1.default);
+const server = http_1.default.createServer(app);
+const io = new socket_io_1.Server(server, {
+    cors: {
+        origin: "*"
+    }
+});
+(0, sockets_1.default)(io);
+server.listen(process.env.port || 3000, () => {
+    console.log(`App running on ports ${process.env.port || 3000}`);
+});

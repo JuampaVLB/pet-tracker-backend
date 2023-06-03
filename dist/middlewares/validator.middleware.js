@@ -15,7 +15,7 @@ const schemaValidation = (schema) => (req, res, next) => {
         if (error instanceof zod_1.ZodError) {
             return res.status(400).json(error.issues.map((issue) => ({ message: issue.message })));
         }
-        return res.status(400).json({ message: 'internal server error' });
+        return res.status(401).json({ message: 'internal server error' });
     }
 };
 exports.schemaValidation = schemaValidation;
