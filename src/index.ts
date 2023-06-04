@@ -23,6 +23,6 @@ const io = new Server(server, {
 
 sockets(io);
 
-server.listen(process.env.port || 3000, () => {
+server.listen(process.env.PORT || 3000, () => {
     console.log(`App running on ports ${process.env.port || 3000}`);
 });
