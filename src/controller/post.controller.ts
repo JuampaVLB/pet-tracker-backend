@@ -41,17 +41,22 @@ export const sendPost = async (req: Request, res: Response) => {
 export const sendComment = async (req: Request, res: Response) => {
     try {
 
-        const { comment, room } = req.body;
+        const { comment, room, username } = req.body;
         console.log(comment);
         const result = await Post.findOne({ room });
 
         if(!result) return res.status(404).json({ message: "Post no exits!" });
         
-        result.comments.push(comment);
+        let obj = {
+            username,
+            comment
+        }
+
+        result.comments.push(obj);
 
         await result.save();
 
-        return res.status(200).json({ result });
+        return res.status(200).json({ result, username });
     } catch (error) {
         return res.status(404).json({ error });
     }
