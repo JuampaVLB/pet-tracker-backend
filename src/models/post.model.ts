@@ -5,7 +5,7 @@ export interface IPost extends Document {
     title: string,
     desc: string,
     room: string,
-    comments: string,
+    comments: Array<string>,
 }
 
 const postSchema = new Schema({
@@ -28,7 +28,8 @@ const postSchema = new Schema({
         unique: true
     },
     comments: {
-        type: String,
+        type: Array,
+        default: []
     }
 },
 {

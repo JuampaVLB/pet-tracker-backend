@@ -2,25 +2,25 @@ import { Request, Response } from 'express';
 import Post, { IPost } from '../models/post.model';
 import { v4 as uuidv4 } from 'uuid';
 
+// export const sendPost = async (req: Request, res: Response) => {
+//     try {
+
+//         const { title, desc } = req.body;
+
+//         const newPost: IPost = await Post.create({
+//             username: "admin",
+//             title,
+//             desc,
+//         })
+
+//         return res.status(400).json({ message: "Post Created Succesfully", newPost });
+
+//     } catch (error) {
+//         return res.status(404).json({ error });
+//     }
+// }
+
 export const sendPost = async (req: Request, res: Response) => {
-    try {
-
-        const { title, desc } = req.body;
-
-        const newPost: IPost = await Post.create({
-            username: "admin",
-            title,
-            desc,
-        })
-
-        return res.status(400).json({ message: "Post Created Succesfully", newPost });
-
-    } catch (error) {
-        return res.status(404).json({ error });
-    }
-}
-
-export const test = async (req: Request, res: Response) => {
     try {
         const { username ,title, desc } = req.body;
         const uuid = uuidv4();
@@ -38,11 +38,44 @@ export const test = async (req: Request, res: Response) => {
     }
 }
 
+export const sendComment = async (req: Request, res: Response) => {
+    try {
+
+        const { comment, room } = req.body;
+        console.log(comment);
+        const result = await Post.findOne({ room });
+
+        if(!result) return res.status(404).json({ message: "Post no exits!" });
+        
+        result.comments.push(comment);
+
+        await result.save();
+
+        return res.status(200).json({ result });
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
+}
+
 export const getPosts = async (_req: Request, res: Response) => {
     try {
         const findPosts = await Post.find({});
 
         return res.json(findPosts);
+
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getComments = async (req: Request, res: Response) => {
+    try {
+        
+        const room = req.params.room;
+
+       const findComments = await Post.find({ room }, 'comments');
+
+        return res.json(findComments);
 
     } catch (error) {
         return error;

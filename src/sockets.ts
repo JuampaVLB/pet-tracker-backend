@@ -3,8 +3,18 @@ import Post from './models/post.model';
 
 const sockets = (io: Server) => {
   io.on('connection', (socket: Socket) => {
+
+    socket.on('client:comment', async (room) => {
+      try {
+        const comments = await Post.find({ room }, 'comments');
+        console.log(comments);
+        socket.broadcast.emit('server:loadcomments', comments);
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
     socket.on("client:post", async () => {
-        console.log("me emitieron un post")
         try { 
             const posts = await Post.find();
             socket.broadcast.emit('server:loadposts', posts);
@@ -13,6 +23,7 @@ const sockets = (io: Server) => {
         }
     })
   });
+  
 };
 
 export default sockets;
