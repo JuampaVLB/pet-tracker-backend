@@ -21,7 +21,7 @@ const postSchema = new mongoose_1.Schema({
         unique: true
     },
     comments: {
-        type: String,
+        type: Array,
     }
 }, {
     timestamps: true,

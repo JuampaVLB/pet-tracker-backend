@@ -15,8 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const post_model_1 = __importDefault(require("./models/post.model"));
 const sockets = (io) => {
     io.on('connection', (socket) => {
+        socket.on('client:comment', (room) => __awaiter(void 0, void 0, void 0, function* () {
+            try {
+                const comments = yield post_model_1.default.find({ room }, 'comments');
+                console.log(comments);
+                socket.broadcast.emit('server:loadcomments', comments);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }));
         socket.on("client:post", () => __awaiter(void 0, void 0, void 0, function* () {
-            console.log("me emitieron un post");
             try {
                 const posts = yield post_model_1.default.find();
                 socket.broadcast.emit('server:loadposts', posts);

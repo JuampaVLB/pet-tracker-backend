@@ -12,25 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPosts = exports.test = exports.sendPost = void 0;
+exports.getComments = exports.getPosts = exports.sendComment = exports.sendPost = void 0;
 const post_model_1 = __importDefault(require("../models/post.model"));
 const uuid_1 = require("uuid");
+// export const sendPost = async (req: Request, res: Response) => {
+//     try {
+//         const { title, desc } = req.body;
+//         const newPost: IPost = await Post.create({
+//             username: "admin",
+//             title,
+//             desc,
+//         })
+//         return res.status(400).json({ message: "Post Created Succesfully", newPost });
+//     } catch (error) {
+//         return res.status(404).json({ error });
+//     }
+// }
 const sendPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { title, desc } = req.body;
-        const newPost = yield post_model_1.default.create({
-            username: "admin",
-            title,
-            desc,
-        });
-        return res.status(400).json({ message: "Post Created Succesfully", newPost });
-    }
-    catch (error) {
-        return res.status(404).json({ error });
-    }
-});
-exports.sendPost = sendPost;
-const test = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, title, desc } = req.body;
         const uuid = (0, uuid_1.v4)();
@@ -46,7 +44,27 @@ const test = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(500).json({ message: 'internal server error (!)' });
     }
 });
-exports.test = test;
+exports.sendPost = sendPost;
+const sendComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { comment, room, username } = req.body;
+        console.log(comment);
+        const result = yield post_model_1.default.findOne({ room });
+        if (!result)
+            return res.status(404).json({ message: "Post no exits!" });
+        let obj = {
+            username,
+            comment
+        };
+        result.comments.push(obj);
+        yield result.save();
+        return res.status(200).json({ result, username });
+    }
+    catch (error) {
+        return res.status(404).json({ error });
+    }
+});
+exports.sendComment = sendComment;
 const getPosts = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const findPosts = yield post_model_1.default.find({});
@@ -57,3 +75,14 @@ const getPosts = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getPosts = getPosts;
+const getComments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const room = req.params.room;
+        const findComments = yield post_model_1.default.find({ room }, 'comments');
+        return res.json(findComments);
+    }
+    catch (error) {
+        return error;
+    }
+});
+exports.getComments = getComments;
