@@ -86,3 +86,20 @@ export const getComments = async (req: Request, res: Response) => {
         return error;
     }
 }
+
+export const deletePost = async (req: Request, res: Response) => {
+    try {
+        const room = req.params.room;
+        
+        if(!room) return res.json("Falta una Sala");
+
+        const deleted = await Post.findOneAndDelete({ room });
+
+        if(!deleted) return res.json("error no se borro");
+
+        return res.json({message: "Posteo Borrado Exitosamente", deleted});
+        
+    } catch (error) {
+        return res.json(error);
+    }
+}
