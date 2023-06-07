@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getComments = exports.getPosts = exports.sendComment = exports.sendPost = void 0;
+exports.deletePost = exports.getComments = exports.getPosts = exports.sendComment = exports.sendPost = void 0;
 const post_model_1 = __importDefault(require("../models/post.model"));
 const uuid_1 = require("uuid");
 // export const sendPost = async (req: Request, res: Response) => {
@@ -86,3 +86,18 @@ const getComments = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getComments = getComments;
+const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const room = req.params.room;
+        if (!room)
+            return res.json("Falta una Sala");
+        const deleted = yield post_model_1.default.findOneAndDelete({ room });
+        if (!deleted)
+            return res.json("error no se borro");
+        return res.json({ message: "Posteo Borrado Exitosamente", deleted });
+    }
+    catch (error) {
+        return res.json(error);
+    }
+});
+exports.deletePost = deletePost;

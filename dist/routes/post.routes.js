@@ -12,4 +12,5 @@ router.post('/send/post', (0, validator_middleware_1.schemaValidation)(post_sche
 router.post('/send/comment', post_controller_1.sendComment);
 router.get('/all/post', post_controller_1.getPosts);
 router.get('/all/comment/:room', post_controller_1.getComments);
+router.delete('/p/:room', post_controller_1.deletePost);
 exports.default = router;
