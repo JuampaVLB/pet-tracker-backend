@@ -22,14 +22,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const sendPost = async (req: Request, res: Response) => {
     try {
-        const { username ,title, desc } = req.body;
+        const { username ,title, desc, image } = req.body;
         const uuid = uuidv4();
 
         const newPost: IPost = await Post.create({
             username: username,
             title: title,
             desc: desc,
-            room: uuid
+            room: uuid,
+            image: image,
         })
 
         return res.status(200).json({ message: "Post Created Succesfully", newPost });
