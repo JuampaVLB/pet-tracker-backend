@@ -30,13 +30,14 @@ const uuid_1 = require("uuid");
 // }
 const sendPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, title, desc } = req.body;
+        const { username, title, desc, image } = req.body;
         const uuid = (0, uuid_1.v4)();
         const newPost = yield post_model_1.default.create({
             username: username,
             title: title,
             desc: desc,
-            room: uuid
+            room: uuid,
+            image: image,
         });
         return res.status(200).json({ message: "Post Created Succesfully", newPost });
     }

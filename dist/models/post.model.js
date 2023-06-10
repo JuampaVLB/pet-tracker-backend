@@ -22,6 +22,9 @@ const postSchema = new mongoose_1.Schema({
     },
     comments: {
         type: Array,
+    },
+    image: {
+        type: String,
     }
 }, {
     timestamps: true,
