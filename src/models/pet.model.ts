@@ -8,8 +8,8 @@ enum Size {
 }
 
 enum Genre {
-    Male = 'femenino',
-    Female = 'masculino',
+    male = 'femenino',
+    female = 'masculino',
 }
 
 export interface IPet extends Document {

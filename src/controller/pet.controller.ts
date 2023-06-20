@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import pet, { IPet } from '../models/pet.model';
-// import jwt from 'jsonwebtoken';
 
 export const createPet = async (req: Request, res: Response) => {
 
