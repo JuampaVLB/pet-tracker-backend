@@ -15,19 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePost = exports.getComments = exports.getPosts = exports.sendComment = exports.sendPost = void 0;
 const post_model_1 = __importDefault(require("../models/post.model"));
 const uuid_1 = require("uuid");
-// export const sendPost = async (req: Request, res: Response) => {
-//     try {
-//         const { title, desc } = req.body;
-//         const newPost: IPost = await Post.create({
-//             username: "admin",
-//             title,
-//             desc,
-//         })
-//         return res.status(400).json({ message: "Post Created Succesfully", newPost });
-//     } catch (error) {
-//         return res.status(404).json({ error });
-//     }
-// }
 const sendPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, title, desc, image } = req.body;
