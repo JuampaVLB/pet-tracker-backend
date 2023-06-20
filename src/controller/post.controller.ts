@@ -2,24 +2,6 @@ import { Request, Response } from 'express';
 import Post, { IPost } from '../models/post.model';
 import { v4 as uuidv4 } from 'uuid';
 
-// export const sendPost = async (req: Request, res: Response) => {
-//     try {
-
-//         const { title, desc } = req.body;
-
-//         const newPost: IPost = await Post.create({
-//             username: "admin",
-//             title,
-//             desc,
-//         })
-
-//         return res.status(400).json({ message: "Post Created Succesfully", newPost });
-
-//     } catch (error) {
-//         return res.status(404).json({ error });
-//     }
-// }
-
 export const sendPost = async (req: Request, res: Response) => {
     try {
         const { username ,title, desc, image } = req.body;
