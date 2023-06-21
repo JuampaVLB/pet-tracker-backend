@@ -15,8 +15,11 @@ exports.petSchema = zod_1.default.object({
             .nonempty('La raza es requerida.')
             .min(4, "Se necesita un minimo de 4 caracteres para la raza."),
         size: zod_1.default.enum(['small', 'medium', 'big', 'verybig'], {
-            required_error: 'El tamaño es requerido',
+            errorMap: () => ({ message: 'El tamaño es requerido.' })
         }),
+        arrayProp: zod_1.default.array(zod_1.default.string())
+            .nonempty()
+            .min(1, "Debes seleccionar almenos 2 imagenes de tu mascota."),
         genre: zod_1.default.enum(['male', 'female']),
         collar: zod_1.default.boolean()
     }),
