@@ -12,8 +12,11 @@ export const petSchema = z.object({
             .nonempty('La raza es requerida.')
             .min(4, "Se necesita un minimo de 4 caracteres para la raza."),
         size: z.enum(['small', 'medium', 'big', 'verybig'], {
-            errorMap: () => ({ message: 'El tamaño es requerido' })
+            errorMap: () => ({ message: 'El tamaño es requerido.' })
           }),
+          arrayProp: z.array(z.string())
+          .nonempty()
+          .min(1, "Debes seleccionar almenos 2 imagenes de tu mascota."),
         genre: z.enum(['male', 'female']),
         collar: z.boolean()
         }),
