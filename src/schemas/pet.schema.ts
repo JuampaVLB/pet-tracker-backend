@@ -1,10 +1,10 @@
 import z from "zod";
 
-// const photoSchema = z.object({
-//     filename: z.string().url(),
-//     url: z.string(),
-//     blob: z.string()
-// });
+const photoSchema = z.object({
+    filename: z.string().url(),
+    url: z.string(),
+    blob: z.unknown(),
+});
 
 
 export const petSchema = z.object({
@@ -19,9 +19,9 @@ export const petSchema = z.object({
         size: z.enum(['small', 'medium', 'big', 'verybig'], {
             errorMap: () => ({ message: 'El tamaño es requerido.' })
         }),
-        // photos: z.array(photoSchema)
-        //     .nonempty()
-        //     .min(2, "Debes seleccionar almenos 2 imagenes de tu mascota."),
+        photos: z.array(photoSchema)
+            .nonempty()
+            .min(2, "Debes seleccionar almenos 2 imagenes de tu mascota."),
         genre: z.enum(['male', 'female']),
         collar: z.boolean()
     }),
