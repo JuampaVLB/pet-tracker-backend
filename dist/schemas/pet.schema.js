@@ -5,11 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.petSchema = void 0;
 const zod_1 = __importDefault(require("zod"));
-// const photoSchema = z.object({
-//     filename: z.string().url(),
-//     url: z.string(),
-//     blob: z.string()
-// });
+const photoSchema = zod_1.default.object({
+    filename: zod_1.default.string(),
+    url: zod_1.default.string(),
+    blob: zod_1.default.unknown(),
+});
 exports.petSchema = zod_1.default.object({
     body: zod_1.default.object({
         owner: zod_1.default.string()
@@ -22,9 +22,9 @@ exports.petSchema = zod_1.default.object({
         size: zod_1.default.enum(['small', 'medium', 'big', 'verybig'], {
             errorMap: () => ({ message: 'El tamaño es requerido.' })
         }),
-        // photos: z.array(photoSchema)
-        //     .nonempty()
-        //     .min(2, "Debes seleccionar almenos 2 imagenes de tu mascota."),
+        photos: zod_1.default.array(photoSchema)
+            .nonempty()
+            .min(2, "Debes seleccionar almenos 2 imagenes de tu mascota."),
         genre: zod_1.default.enum(['male', 'female']),
         collar: zod_1.default.boolean()
     }),
