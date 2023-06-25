@@ -1,7 +1,7 @@
 import z from "zod";
 
 const photoSchema = z.object({
-    filename: z.string().url(),
+    filename: z.string(),
     url: z.string(),
     blob: z.unknown(),
 });
