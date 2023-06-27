@@ -12,16 +12,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPet = void 0;
+exports.addImage = exports.createPet = exports.getPets = exports.getPet = void 0;
 const pet_model_1 = __importDefault(require("../models/pet.model"));
+const getPet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const name = req.params.name;
+        const searchPets = yield pet_model_1.default.find({ owner: name });
+        res.status(200).json({ searchPets });
+    }
+    catch (error) {
+        res.status(400).json({ error });
+    }
+});
+exports.getPet = getPet;
+const getPets = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const searchPets = yield pet_model_1.default.find({});
+        res.status(200).json({ searchPets });
+    }
+    catch (error) {
+        res.status(400).json({ error });
+    }
+});
+exports.getPets = getPets;
 const createPet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { owner, name, breed, size, photos, genre, collar } = req.body;
+    const { owner, name, breed, size, genre, collar } = req.body;
     const newPet = yield pet_model_1.default.create({
         owner,
         name,
         breed,
         size,
-        photos,
         genre,
         collar
     });
@@ -29,3 +49,9 @@ const createPet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({ savedPet });
 });
 exports.createPet = createPet;
+const addImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, photos } = req.body;
+    const searchPet = yield pet_model_1.default.findByIdAndUpdate(id, { photos: photos }, { new: true });
+    res.status(200).json({ searchPet });
+});
+exports.addImage = addImage;

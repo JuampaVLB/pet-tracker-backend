@@ -9,6 +9,8 @@ const validator_middleware_1 = require("../middlewares/validator.middleware");
 const pet_schema_1 = require("../schemas/pet.schema");
 const router = express_1.default.Router();
 router
-    .get("/", (0, validator_middleware_1.schemaValidation)(pet_schema_1.petSchema), pet_controller_1.createPet)
-    .post('/create', (0, validator_middleware_1.schemaValidation)(pet_schema_1.petSchema), pet_controller_1.createPet);
+    .get("/", pet_controller_1.getPets)
+    .get("/:name", pet_controller_1.getPet)
+    .post('/create', (0, validator_middleware_1.schemaValidation)(pet_schema_1.petSchema), pet_controller_1.createPet)
+    .post('/addImage', pet_controller_1.addImage);
 exports.default = router;

@@ -1,11 +1,21 @@
 import { Request, Response } from 'express';
 import pet, { IPet } from '../models/pet.model';
 
-export const getPets = async (req: Request, res: Response) => {
+export const getPet = async (req: Request, res: Response) => {
     try {
         const name = req.params.name;
 
         const searchPets = await pet.find({ owner: name });
+
+        res.status(200).json({ searchPets });
+    } catch (error) {
+        res.status(400).json({ error });
+    }
+}
+
+export const getPets = async (_req: Request, res: Response) => {
+    try {
+        const searchPets = await pet.find({});
 
         res.status(200).json({ searchPets });
     } catch (error) {
