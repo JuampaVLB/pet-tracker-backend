@@ -8,11 +8,11 @@ export const sendPost = async (req: Request, res: Response) => {
         const uuid = uuidv4();
 
         const newPost: IPost = await Post.create({
-            username: username,
-            title: title,
-            desc: desc,
+            username,
+            title,
+            desc,
             room: uuid,
-            image: image,
+            image
         })
 
         return res.status(200).json({ message: "Post Created Succesfully", newPost });

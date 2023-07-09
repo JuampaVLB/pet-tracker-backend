@@ -6,7 +6,7 @@ export interface IPost extends Document {
     desc: string,
     room: string,
     comments: Array<object>,
-    image: string,
+    image: Array<string>,
 }
 
 const postSchema = new Schema({
@@ -32,7 +32,7 @@ const postSchema = new Schema({
         type: Array,
     },
     image: {
-        type: String,
+        type: Array,
     }
 },
 {
